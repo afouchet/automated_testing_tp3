@@ -24,7 +24,7 @@ def form_detail(request, slug):
 
         if errors:
             form_response.delete()
-            return render(request, "form/form_detail.html", {
+            return render(request, "core/form_detail.html", {
                 "form": form,
                 "questions": questions,
                 "errors": errors,
@@ -33,7 +33,7 @@ def form_detail(request, slug):
 
         return redirect("form_success", slug=slug)
 
-    return render(request, "form/form_detail.html", {
+    return render(request, "core/form_detail.html", {
         "form": form,
         "questions": questions,
         "errors": {},
@@ -43,4 +43,4 @@ def form_detail(request, slug):
 
 def form_success(request, slug):
     form = get_object_or_404(Form, slug=slug)
-    return render(request, "form/form_success.html", {"form": form})
+    return render(request, "core/form_success.html", {"form": form})
