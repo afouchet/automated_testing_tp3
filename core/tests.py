@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 import pytest
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -27,6 +28,11 @@ def required_name_form(db):
         order=1,
     )
     return form
+
+
+@pytest.fixture
+def user(db):
+    return User.objects.create_user(username="alice", password="password123")
 
 
 def test_mandatory_field_error__ok(
@@ -86,3 +92,36 @@ def test_mandatory_field_error_shown(
     WebDriverWait(selenium, 3).until(EC.visibility_of(error))
     assert error.is_displayed()
     assert error.text == "Mandatory field"
+
+
+def test_user_can_create_form_with_question(selenium, live_server, user):
+    """
+    Given a registered user
+    When  they log in and submit the create form page with a question
+    Then  the form and its question are persisted in the database
+    """
+    # ── Given: user logs in ────────────────────────────────────────────
+    selenium.get(f"{live_server.url}/accounts/login/")
+
+    selenium.find_element(By.ID, "id_username").send_keys("alice")
+    selenium.find_element(By.ID, "id_password").send_keys("password123")
+    selenium.find_element(By.CSS_SELECTOR, "button[type=submit]").click()
+
+    WebDriverWait(selenium, 5).until(EC.url_contains("/forms/create/"))
+
+    # ── When: user fills in the form title and one question ────────────
+    selenium.find_element(By.ID, "id_title").send_keys("My First Form")
+
+    # The page starts with one question row pre-filled by JS
+    selenium.find_element(By.NAME, "question_label").send_keys("What is your name?")
+
+    selenium.find_element(By.CSS_SELECTOR, "button[type=submit]").click()
+
+    WebDriverWait(selenium, 5).until(EC.url_contains("/forms/"))
+
+    # ── Then: form and question exist in the database ──────────────────
+    form = Form.objects.get(title="My First Form")
+    assert form is not None
+
+    question = Question.objects.get(form=form, label="What is your name?")
+    assert question.question_type == "text"

@@ -17,7 +17,6 @@ class Question(models.Model):
         ("text", "Text"),
         ("textarea", "Textarea"),
         ("email", "Email"),
-        ("number", "Number"),
     ]
 
     form = models.ForeignKey(Form, on_delete=models.CASCADE, related_name="questions")

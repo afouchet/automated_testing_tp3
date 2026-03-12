@@ -117,3 +117,8 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / "static"
+
+LOGIN_URL = "/accounts/login/"
+LOGIN_REDIRECT_URL = "/forms/create/"
+
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
