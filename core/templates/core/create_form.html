@@ -1,48 +1,12 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <title>Create a form</title>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: Georgia, serif; background: #f7f5f2; display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 2rem; }
-    .card { background: #fff; border: 1px solid #e0dbd4; border-radius: 4px; padding: 2.5rem; width: 100%; max-width: 560px; }
-    h1 { font-size: 1.4rem; font-weight: 700; margin-bottom: 1.5rem; }
-    h2 { font-size: 1rem; font-weight: 700; margin: 1.5rem 0 0.75rem; color: #444; }
-    label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.3rem; color: #333; }
-    input[type="text"], select {
-      width: 100%; padding: 0.55rem 0.75rem; border: 1.5px solid #ccc;
-      border-radius: 3px; font-size: 0.95rem; font-family: inherit;
-      background: #fafafa; outline: none;
-    }
-    input[type="text"]:focus, select:focus { border-color: #555; background: #fff; }
-    .question-row {
-      display: grid; grid-template-columns: 1fr auto; gap: 0.5rem;
-      align-items: end; padding: 0.75rem; background: #f7f5f2;
-      border: 1px solid #e5e0d8; border-radius: 3px; margin-bottom: 0.5rem;
-    }
-    .question-row .fields { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
-    .remove-btn {
-      background: none; border: none; color: #aaa; font-size: 1.2rem;
-      cursor: pointer; padding: 0.3rem; line-height: 1;
-    }
-    .remove-btn:hover { color: #c0392b; }
-    .add-btn {
-      margin-top: 0.5rem; padding: 0.5rem 1.25rem;
-      background: #fff; border: 1.5px solid #ccc; border-radius: 3px;
-      font-size: 0.9rem; font-family: inherit; cursor: pointer; color: #333;
-    }
-    .add-btn:hover { border-color: #555; }
-    .submit-btn {
-      display: block; width: 100%; margin-top: 1.5rem;
-      padding: 0.75rem; background: #1a1a1a; color: #fff;
-      border: none; border-radius: 3px; font-size: 1rem;
-      font-family: inherit; font-weight: 600; cursor: pointer;
-    }
-    .submit-btn:hover { background: #333; }
-    hr { border: none; border-top: 1px solid #e5e0d8; margin: 1.25rem 0; }
-  </style>
+  <link rel="stylesheet" href="{% static 'core/core.css' %}">
 </head>
+
 <body>
   <div class="card">
     <h1>Create a form</h1>
