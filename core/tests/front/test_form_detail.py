@@ -29,7 +29,7 @@ def required_name_form(db):
     return form
 
 
-def test_mandatory_field_error__ok(
+def test_mandatory_field__ok(
     selenium, live_server, required_name_form
 ):
     """
@@ -56,7 +56,7 @@ def test_mandatory_field_error__ok(
     assert not error.is_displayed()
 
 
-def test_mandatory_field_error_shown(
+def test_mandatory_field__error_shown(
     selenium, live_server, required_name_form
 ):
     """
