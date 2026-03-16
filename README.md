@@ -15,19 +15,11 @@ Nous allons coder l'app en Django, avec du Javascript sur les pages.
 
 ### Python
 
-#### Sur Mac/Linux :
+Créer un venv
 ```bash
-chmod +x scripts/setup.sh
-./scripts/setup.sh
-uv run pytest
+uv sync
 ```
-
-#### Sur Windows:
-
-```bash
-scripts\setup.bat
-uv run pytest
-```
+(Si vous n'avez pas `uv` installé, regarder les TDs précédents pour l'installer)
 
 ### Node (nécessaire pour les tests Javascript)
 
