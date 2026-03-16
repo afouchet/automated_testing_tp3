@@ -88,7 +88,49 @@ Lorsque `npm run test` est vert, faîtes `uv run python manage.py collectstatic`
 
 #### Implémentation composant
 
-Vous pouvez maintenant changer core/templates/core/form_detail.html et core/static/core/js/validation.js pour que votre test pass.
+Vous allez maintenant changer core/templates/core/form_detail.html et core/static/core/js/validation.js pour que votre test pass.
+
+Implémenter que, si la question est de type email, on vérifie avec isValidEmail.
+
+Implémenter le changement du texte "Mandatory field" -> "Invalid email address". <br/>
+La partie qui affiche "Mandatory field" se situe, dans core/templates/core/form_detail.html
+```html
+<span
+  class="error-message{% if errors and question.id|stringformat:'s' in errors|stringformat:'s' %} visible{% endif %}"
+  id="error_{{ question.id }}"
+  role="alert"
+  aria-live="polite"
+>
+  {% if errors %}{{ errors|default_if_none:'' }}{% endif %}Mandatory field
+</span>
+```
+Elle est tout le temps là, sauf que, de base elle n'est pas affichée (`display: none`) dans le CSS. <br/>
+
+La partie qui l'affiche est dans le javascript
+```js
+if (!isFilled(field.value)) {
+  field.classList.add("field-error");
+  if (errorSpan) errorSpan.classList.add("visible");
+} else {
+  field.classList.remove("field-error");
+  if (errorSpan) errorSpan.classList.remove("visible");
+}
+```
+
+Soit (**déconseillé**) vous changez form_detail.html pour qu'il contienne "Invalid email address" dans la page. <br/>
+Soit (**conseillé**) votre javascript change le message dans cet error span
+
+```js
+...
+if (!isValidEmail(field.value)) {
+  field.classList.add("field-error");
+  if (errorSpan) {
+    errorSpan.classList.add("visible");
+    errorSpan.innerHTML = "Invalid email address"
+  }
+}
+...
+```
 
 #### Refacto
 
